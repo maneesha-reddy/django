@@ -1,0 +1,48 @@
+{% load static %}
+<html>
+    <head>
+  
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+ 
+  
+        <title>Blog site</title>
+    </head>
+   
+    
+
+    
+
+ <body>
+    
+    
+        <div class="page-header">
+            {% if user.is_superuser %}
+              <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            
+            {% else %}
+                 {% block sidebar %}
+                     {% endblock %}
+            {% endif %}
+            {% if user.is_authenticated %}
+              <h1><a href="/post/" >Maneesha's Blog</a></h1>
+            {% else %}
+              <h1><a href="/" >Maneesha's Blog</a></h1>
+            {% endif %}
+        </div>
+       
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+            
+              
+                    {% block content %}
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+  
+    </body>
+</html>

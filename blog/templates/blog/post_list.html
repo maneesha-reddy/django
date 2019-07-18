@@ -1,0 +1,94 @@
+
+{% extends 'blog/base.html' %}
+    {% block sidebar %}
+
+
+            {% if user.is_authenticated %}
+              <a href="{% url 'post_new' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+            {% endif %}
+
+            
+             {% endblock %}  
+        {% block content %}
+{% if user.is_authenticated %}
+    <div class="content container">
+            <div class="row">
+                <div class="col-md-10">
+   <p style="float:right"><b>Welcome {{request.user.username}}</b></p>
+   <br><br> 
+   
+   <form action="http://127.0.0.1:8000/profile/" style="float:right">
+   <input type="submit" value="Profile" />
+  
+   </form>
+   <br><br>
+   
+   <form action="http://127.0.0.1:8000/logout/" style="float:right">
+    <input type="submit" value="Logout" />
+  
+   </form>
+ </div>
+</div>
+</div>
+   
+<div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+       <form action="" style="float:right" method="GET"> 
+
+  <input type="text" name="title" id="title">
+  
+  <input type="submit" value="Search">
+</form> 
+
+            
+
+</div>
+</div>
+</div>
+
+
+<div class="content container">
+            <div class="row">
+                <div class="col-6">
+          {% for post in posts %}
+                <div class="post">
+                    <div class="date">
+                        <p>published: {{ post.published_date }}</p>
+                    </div>
+                    <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
+                    
+                     
+                    <p>{{ post.text|linebreaksbr }}</p>
+                </div>
+            {% endfor %}
+
+</div>
+</div>
+</div>
+{% if posts.has_other_pages %}
+  <ul class="pagination">
+    {% if posts.has_previous %}
+      <li><a href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&laquo;</span></li>
+    {% endif %}
+    {% for i in posts.paginator.page_range %}
+      {% if posts.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+    {% if posts.has_next %}
+      <li><a href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><span>&raquo;</span></li>
+    {% endif %}
+  </ul>
+{% endif %}
+      {% endif %}   
+
+    {% endblock %}
+   
+ 

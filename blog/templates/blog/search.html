@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+<ul>
+<div class="search">
+
+  {% for user in Q %}
+  <!--<li><a href="{% url 'post_detail' pk=user.pk %}">{{ user.title }}</a></li>-->
+  <h1>{{user.title}}</h1>
+  <p>{{user.text}}</p>
+  <p>{{user.author}}</p>
+  {% endfor %}
+</div>
+</ul>
+
+
+
+{% endblock %}

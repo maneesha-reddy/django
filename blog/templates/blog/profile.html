@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    <!--<h2>Profile</h2>
+    <form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>-->
+    <form method="post">
+  {% csrf_token %}
+ <!-- {{ user_form.as_p }}-->
+  {% for field in user_form  %}
+    {% if field.name != "password"  %}
+             {{field.label_tag}}:{{ field }}<br><br>
+    
+    {% endif %}
+{% endfor %}
+  {{ profile_form.as_p }}
+  <button type="submit">Save changes</button>
+</form>
+ 
+
+
+{% endblock %}
